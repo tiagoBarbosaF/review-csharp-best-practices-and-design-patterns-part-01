@@ -5,12 +5,7 @@ namespace Adopet.Console.Classes;
 
 public class Import
 {
-    private readonly HttpClient _client;
-
-    public Import()
-    {
-        _client = ConfigureHttpClient("http://localhost:5057");
-    }
+    private readonly HttpClient _client = ConfigureHttpClient("http://localhost:5057");
 
     public async Task FilePathToImportAsync(string filePathToImport)
     {
