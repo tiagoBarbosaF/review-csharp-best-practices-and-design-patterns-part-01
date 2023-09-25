@@ -1,21 +1,12 @@
 ﻿namespace Adopet.Console.Classes;
 
+[DocCommand(instruction:"show",documentation:"adopet show <arquivo> comando que exibe no terminal o conteúdo do arquivo importado.")]
 public class Show
 {
     public void FilePathToShow(string filePathToShow)
     {
-        using (StreamReader sr = new StreamReader(filePathToShow))
-        {
-            System.Console.WriteLine("----- Serão importados os dados abaixo -----");
-            while (!sr.EndOfStream)
-            {
-                var propriedades = sr.ReadLine().Split(';');
-                var pet = new Pet(Guid.Parse(propriedades[0]),
-                    propriedades[1],
-                    TipoPet.Cachorro
-                );
-                System.Console.WriteLine(pet);
-            }
-        }
+        var listPets = new LeitorArquivo().LerArquivo(filePathToShow);
+
+        foreach (var pet in listPets) System.Console.WriteLine(pet);
     }
 }

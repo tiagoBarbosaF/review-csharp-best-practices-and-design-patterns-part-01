@@ -3,6 +3,8 @@ using System.Net.Http.Json;
 
 namespace Adopet.Console.Classes;
 
+[DocCommand(instruction: "list",
+    documentation: "adopet list comando que exibe no terminal o conteúdo cadastrado na base de dados da Adopet.")]
 public class List
 {
     private readonly HttpClient _client = ConfigureHttpClient("http://localhost:5057");
