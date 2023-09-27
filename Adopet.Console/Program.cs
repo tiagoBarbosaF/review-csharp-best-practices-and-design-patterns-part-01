@@ -1,27 +1,18 @@
-﻿using Adopet.Console.Classes;
+﻿using Adopet.Console.Commands;
 
 Console.ForegroundColor = ConsoleColor.Green;
+
+var systemCommands = new SystemCommands();
+
 try
 {
     var command = args[0].Trim();
-    switch (command)
-    {
-        case "import":
-            await new Import().FilePathToImportAsync(filePathToImport: args[1]);
-            break;
-        case "help":
-            new Help().CallHelpCommandList(command:args);
-            break;
-        case "show":
-            new Show().FilePathToShow(filePathToShow:args[1]);
-            break;
-        case "list":
-            await new List().ListAllPetsAsync();
-            break;
-        default:
-            Console.WriteLine("Comando inválido!");
-            break;
-    }
+    var systemCommandsToExecute = systemCommands[command];
+
+    if (systemCommandsToExecute is not null)
+        await systemCommandsToExecute.ExecuteAsync(args);
+    else
+        Console.WriteLine("Invalid command.");
 }
 catch (Exception ex)
 {

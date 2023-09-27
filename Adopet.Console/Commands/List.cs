@@ -1,18 +1,19 @@
 ﻿using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using Adopet.Console.Classes;
 
-namespace Adopet.Console.Classes;
+namespace Adopet.Console.Commands;
 
 [DocCommand(instruction: "list",
     documentation: "adopet list comando que exibe no terminal o conteúdo cadastrado na base de dados da Adopet.")]
-public class List
+public class List : ICommand
 {
     private readonly HttpClient _client = ConfigureHttpClient("http://localhost:5057");
 
-    public async Task ListAllPetsAsync()
+    public async Task ExecuteAsync(string[] args)
     {
         var pets = await ListPetsAsync();
-        foreach (var pet in pets) System.Console.WriteLine(pet);
+        foreach (var pet in pets!) System.Console.WriteLine(pet);
     }
     
     async Task<IEnumerable<Pet>?> ListPetsAsync()
@@ -30,4 +31,5 @@ public class List
         client.BaseAddress = new Uri(url);
         return client;
     }
+
 }
